@@ -5,6 +5,10 @@
 } @else if (error()) {
   <p class="error" role="alert">{{ error() }}</p>
 } @else {
+  @if (errorEliminar()) {
+    <p class="error" role="alert">{{ errorEliminar() }}</p>
+  }
+
   <div class="tabla">
     <table>
       <thead>
@@ -15,6 +19,7 @@
           <th>Ciclo</th>
           <th>Promedio</th>
           <th>Estado académico</th>
+          <th>Acciones</th>
         </tr>
       </thead>
 
@@ -27,10 +32,19 @@
             <td>{{ alumno.ciclo }}</td>
             <td>{{ alumno.promedio }}</td>
             <td>{{ alumno.estadoAcademico }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn-eliminar"
+                [disabled]="eliminando() !== null"
+                (click)="eliminar(alumno)">
+                {{ eliminando() === alumno.id ? 'Eliminando...' : 'Eliminar' }}
+              </button>
+            </td>
           </tr>
         } @empty {
           <tr>
-            <td colspan="6">No hay alumnos registrados.</td>
+            <td colspan="7">No hay alumnos registrados.</td>
           </tr>
         }
       </tbody>

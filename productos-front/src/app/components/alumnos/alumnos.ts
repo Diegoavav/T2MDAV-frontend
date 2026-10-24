@@ -14,6 +14,8 @@ export class Alumnos implements OnInit {
   alumnos = signal<Alumno[]>([]);
   cargando = signal(true);
   error = signal('');
+  errorEliminar = signal('');
+  eliminando = signal<number | null>(null);
 
   ngOnInit(): void {
     this.api.listarAlumnos().subscribe({
@@ -23,9 +25,37 @@ export class Alumnos implements OnInit {
       },
       error: () => {
         this.error.set(
-          'No se pudieron cargar los alumnos. Verifica que el backend esté funcionando.'
+          'No se pudieron cargar los alumnos. Revisa el backend.'
         );
         this.cargando.set(false);
+      }
+    });
+  }
+
+  eliminar(alumno: Alumno): void {
+    if (this.eliminando() !== null) {
+      return;
+    }
+
+    if (!confirm(`¿Deseas eliminar a ${alumno.nombres}?`)) {
+      return;
+    }
+
+    this.errorEliminar.set('');
+    this.eliminando.set(alumno.id);
+
+    this.api.eliminarAlumno(alumno.id).subscribe({
+      next: () => {
+        this.alumnos.update(lista =>
+          lista.filter(item => item.id !== alumno.id)
+        );
+        this.eliminando.set(null);
+      },
+      error: () => {
+        this.errorEliminar.set(
+          'No se pudo eliminar al alumno. Recarga el listado e inténtalo nuevamente.'
+        );
+        this.eliminando.set(null);
       }
     });
   }

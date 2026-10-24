@@ -5,6 +5,10 @@
 } @else if (error()) {
   <p class="error" role="alert">{{ error() }}</p>
 } @else {
+  @if (errorEliminar()) {
+    <p class="error" role="alert">{{ errorEliminar() }}</p>
+  }
+
   <div class="tabla">
     <table>
       <thead>
@@ -14,6 +18,7 @@
           <th>Precio</th>
           <th>Stock</th>
           <th>Estado del stock</th>
+          <th>Acciones</th>
         </tr>
       </thead>
 
@@ -25,10 +30,19 @@
             <td>S/ {{ producto.precio }}</td>
             <td>{{ producto.stock }}</td>
             <td>{{ producto.estadoStock }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn-eliminar"
+                [disabled]="eliminando() !== null"
+                (click)="eliminar(producto)">
+                {{ eliminando() === producto.id ? 'Eliminando...' : 'Eliminar' }}
+              </button>
+            </td>
           </tr>
         } @empty {
           <tr>
-            <td colspan="5">No hay productos registrados.</td>
+            <td colspan="6">No hay productos registrados.</td>
           </tr>
         }
       </tbody>

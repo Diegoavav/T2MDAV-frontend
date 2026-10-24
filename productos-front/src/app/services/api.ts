@@ -17,7 +17,15 @@ export class ApiService {
     return this.http.get<Alumno[]>(`${this.apiUrl}/alumnos`);
   }
 
+  eliminarAlumno(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/alumnos/${id}`);
+  }
+
   listarProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/productos`);
+  }
+
+  eliminarProducto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/productos/${id}`);
   }
 }

@@ -19,20 +19,15 @@ h1 {
   margin-top: 0;
 }
 
-header p {
-  margin-bottom: 24px;
-}
-
 nav {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
+  margin-top: 20px;
 }
 
 nav a {
-  display: inline-block;
   padding: 10px 18px;
-  border: 1px solid #ffffff80;
+  border: 1px solid white;
   border-radius: 6px;
   color: white;
   text-decoration: none;
@@ -51,7 +46,6 @@ main {
   padding: 24px;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 3px 12px #0000000d;
 }
 
 h2 {
@@ -85,7 +79,24 @@ tbody tr:nth-child(even) {
 
 .error {
   padding: 16px;
-  border-radius: 6px;
   background: #fff0f0;
   color: #a11919;
+}
+
+.btn-eliminar {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #b42318;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background: #8f1c13;
+}
+
+.btn-eliminar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
